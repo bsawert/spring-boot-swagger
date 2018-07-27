@@ -4,12 +4,13 @@ import com.sawert.swagger.model.Dog;
 import com.sawert.swagger.model.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class DogDto {
@@ -20,15 +21,15 @@ public class DogDto {
     private Long id;
 
     @Column(nullable = false)
-    private final String name;
+    private String name;
 
-    private final String description;
+    private String description;
 
     @Enumerated(EnumType.STRING)
-    private final Gender gender;
+    private Gender gender;
 
     @ManyToOne
-    private final BreedDto breedDto;
+    private BreedDto breedDto;
 
     public DogDto(Dog dog) {
         this(dog.getId(), dog.getName(), dog.getDescription(), dog.getGender(), new BreedDto(dog.getBreed()));

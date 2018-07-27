@@ -37,8 +37,7 @@ public class Breed   {
    * Get id
    * @return id
   **/
-  @ApiModelProperty(example = "1", required = true, value = "")
-  @NotNull
+  @ApiModelProperty(example = "1", value = "")
 
 
   public Long getId() {

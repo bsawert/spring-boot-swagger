@@ -4,12 +4,14 @@ import com.sawert.swagger.model.AKCGroup;
 import com.sawert.swagger.model.Breed;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class BreedDto {
@@ -20,12 +22,13 @@ public class BreedDto {
     private Long id;
 
     @Column(nullable = false)
-    private final String name;
+    @NaturalId
+    private String name;
 
-    private final String description;
+    private String description;
 
     @Enumerated(EnumType.STRING)
-    private final AKCGroup akcgroup;
+    private AKCGroup akcgroup;
 
     public BreedDto(Breed breed) {
         this(breed.getId(), breed.getName(), breed.getDescription(), breed.getAkcgroup());

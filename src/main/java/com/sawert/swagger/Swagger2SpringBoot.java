@@ -30,10 +30,10 @@ public class Swagger2SpringBoot implements CommandLineRunner {
     CommandLineRunner initData(BreedRepository breedRepository, DogRepository dogRepository) {
         return args -> {
             Arrays.stream(args).forEach(arg -> logger.info(arg));
-            BreedDto breedDto = breedRepository.save(
-                new BreedDto("Pug", "Pug", AKCGroup.TOY));
-            DogDto dogDto = dogRepository.save(
-                new DogDto("Gidget", "Gidget", Gender.FEMALE, breedDto));
+//            BreedDto breedDto = breedRepository.save(
+//                new BreedDto("Pug", "Pug", AKCGroup.TOY));
+//            DogDto dogDto = dogRepository.save(
+//                new DogDto("Gidget", "Gidget", Gender.FEMALE, breedDto));
         };
     }
 
