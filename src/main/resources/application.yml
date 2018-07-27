@@ -1,0 +1,27 @@
+spring:
+  main:
+    banner-mode: "off"
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    open-in-view: true
+  jackson:
+    date-format: com.sawert.swagger.RFC3339DateFormat
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+server:
+  contextPath: /doghouse
+  port: 8080
+
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /api-docs
+
+logging:
+  level:
+    org.hibernate.SQL: debug
