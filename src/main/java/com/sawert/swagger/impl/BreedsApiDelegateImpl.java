@@ -24,7 +24,6 @@ public class BreedsApiDelegateImpl implements BreedsApiDelegate {
     private ObjectMapper objectMapper;
     @Autowired
     private HttpServletRequest httpServletRequest;
-
     @Autowired
     private BreedRepository breedRepository;
 
