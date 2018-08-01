@@ -42,7 +42,7 @@ public interface DogsApiDelegate {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }}", Dog.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : [ {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }, {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  } ]}", Dog.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -61,7 +61,7 @@ public interface DogsApiDelegate {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }}, {  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : [ {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }, {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  } ]}, {  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : [ {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }, {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  } ]} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,7 +80,7 @@ public interface DogsApiDelegate {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }}", Dog.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : [ {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }, {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  } ]}", Dog.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -95,11 +95,12 @@ public interface DogsApiDelegate {
     /**
      * @see DogsApi#searchDog
      */
-    default ResponseEntity<List<Dog>> searchDog(String searchString) {
+    default ResponseEntity<List<Dog>> searchDog(String name,
+        String breed) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }}, {  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : [ {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }, {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  } ]}, {  \"gender\" : { },  \"name\" : \"Fluffy\",  \"description\" : \"Pound Puppy\",  \"id\" : 1,  \"breed\" : [ {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  }, {    \"name\" : \"Blue Tick Hound\",    \"description\" : \"Blue Tick Hound\",    \"id\" : 1,    \"akcgroup\" : { }  } ]} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

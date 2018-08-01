@@ -72,8 +72,8 @@ public interface BreedsApi {
     @RequestMapping(value = "/breeds/search",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<Breed>> searchBreed(@ApiParam(value = "pass an optional search string for looking up breed") @Valid @RequestParam(value = "searchString", required = false) String searchString) {
-        return getDelegate().searchBreed(searchString);
+    default ResponseEntity<List<Breed>> searchBreed(@ApiParam(value = "optional string to search for breed by name") @Valid @RequestParam(value = "name", required = false) String name,@ApiParam(value = "optional string to search for breed by akcgroup") @Valid @RequestParam(value = "akcgroup", required = false) String akcgroup) {
+        return getDelegate().searchBreed(name, akcgroup);
     }
 
 }

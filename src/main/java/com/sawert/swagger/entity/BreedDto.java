@@ -30,6 +30,12 @@ public class BreedDto {
     @Enumerated(EnumType.STRING)
     private AKCGroup akcgroup;
 
+    public BreedDto(String name, String description, AKCGroup akcGroup) {
+        this.name = name;
+        this.description = description;
+        this.akcgroup = akcGroup;
+    }
+
     public BreedDto(Breed breed) {
         this(breed.getId(), breed.getName(), breed.getDescription(), breed.getAkcgroup());
     }

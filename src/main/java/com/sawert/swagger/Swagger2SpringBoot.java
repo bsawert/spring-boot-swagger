@@ -1,41 +1,17 @@
 package com.sawert.swagger;
 
-import com.sawert.swagger.entity.BreedDto;
-import com.sawert.swagger.entity.DogDto;
-import com.sawert.swagger.model.AKCGroup;
-import com.sawert.swagger.model.Gender;
-import com.sawert.swagger.repository.BreedRepository;
-import com.sawert.swagger.repository.DogRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.util.Arrays;
 
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan(basePackages = { "com.sawert.swagger", "com.sawert.swagger.api" })
 public class Swagger2SpringBoot implements CommandLineRunner {
-
-	private final Logger logger = LoggerFactory.getLogger(Swagger2SpringBoot.class);
-
-    @Bean
-    CommandLineRunner initData(BreedRepository breedRepository, DogRepository dogRepository) {
-        return args -> {
-            Arrays.stream(args).forEach(arg -> logger.info(arg));
-//            BreedDto breedDto = breedRepository.save(
-//                new BreedDto("Pug", "Pug", AKCGroup.TOY));
-//            DogDto dogDto = dogRepository.save(
-//                new DogDto("Gidget", "Gidget", Gender.FEMALE, breedDto));
-        };
-    }
 
     @Override
     public void run(String... arg0) throws Exception {
@@ -55,5 +31,6 @@ public class Swagger2SpringBoot implements CommandLineRunner {
         public int getExitCode() {
             return 10;
         }
+
     }
 }

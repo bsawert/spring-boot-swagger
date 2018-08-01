@@ -2,6 +2,7 @@ package com.sawert.swagger.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.Serializable;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;

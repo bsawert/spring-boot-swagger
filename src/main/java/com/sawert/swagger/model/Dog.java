@@ -7,6 +7,9 @@ import com.sawert.swagger.model.Breed;
 import com.sawert.swagger.model.Gender;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Serializable;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -16,7 +19,9 @@ import javax.validation.constraints.*;
  */
 @Validated
 
-public class Dog   {
+public class Dog  implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty("id")
   private Long id = null;
 
@@ -30,7 +35,8 @@ public class Dog   {
   private Gender gender = null;
 
   @JsonProperty("breed")
-  private Breed breed = null;
+  @Valid
+  private List<Breed> breed = null;
 
   public Dog id(Long id) {
     this.id = id;
@@ -114,8 +120,16 @@ public class Dog   {
     this.gender = gender;
   }
 
-  public Dog breed(Breed breed) {
+  public Dog breed(List<Breed> breed) {
     this.breed = breed;
+    return this;
+  }
+
+  public Dog addBreedItem(Breed breedItem) {
+    if (this.breed == null) {
+      this.breed = new ArrayList<>();
+    }
+    this.breed.add(breedItem);
     return this;
   }
 
@@ -127,11 +141,11 @@ public class Dog   {
 
   @Valid
 
-  public Breed getBreed() {
+  public List<Breed> getBreed() {
     return breed;
   }
 
-  public void setBreed(Breed breed) {
+  public void setBreed(List<Breed> breed) {
     this.breed = breed;
   }
 

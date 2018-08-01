@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.sawert.swagger.model.AKCGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -15,7 +16,9 @@ import javax.validation.constraints.*;
  */
 @Validated
 
-public class Breed   {
+public class Breed  implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty("id")
   private Long id = null;
 

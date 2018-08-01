@@ -95,7 +95,8 @@ public interface BreedsApiDelegate {
     /**
      * @see BreedsApi#searchBreed
      */
-    default ResponseEntity<List<Breed>> searchBreed(String searchString) {
+    default ResponseEntity<List<Breed>> searchBreed(String name,
+        String akcgroup) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
