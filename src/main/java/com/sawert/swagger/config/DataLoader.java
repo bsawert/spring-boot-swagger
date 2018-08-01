@@ -13,7 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Configuration
 public class DataLoader {
@@ -26,13 +28,15 @@ public class DataLoader {
                 new BreedDto("Pug", "Pug", AKCGroup.TOY));
             DogDto dogDto = dogRepository.save(
                 new DogDto("Gidget", "Gidget", Gender.FEMALE,
-                        Collections.<BreedDto>singleton(breedDto)));
+                    Collections.<BreedDto>singleton(breedDto)));
 
-            breedDto = breedRepository.save(
-                new BreedDto("Chihuahua", "Chihuahua", AKCGroup.TOY));
-             dogDto = dogRepository.save(
-                    new DogDto("Lily", "Lily", Gender.FEMALE,
-                        Collections.<BreedDto>singleton(breedDto)));
+            Set<BreedDto> breedDtoSet =  new HashSet<BreedDto>();
+            breedDtoSet.add(breedRepository.save(
+                new BreedDto("Chihuahua", "Chihuahua", AKCGroup.TOY)));
+            breedDtoSet.add(breedRepository.save(
+                new BreedDto("Dachshund", "Weiner Dog", AKCGroup.TOY)));
+            dogDto = dogRepository.save(
+                new DogDto("Lily", "Lily", Gender.FEMALE, breedDtoSet));
         };
     }
 }
