@@ -17,6 +17,7 @@
 .factorypath
 .gradle
 .idea
+.swagger-codegen
 .metadata
 .project
 .recommenders
