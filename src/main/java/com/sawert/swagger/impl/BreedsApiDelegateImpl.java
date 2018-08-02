@@ -6,6 +6,7 @@ import com.sawert.swagger.api.BreedsApiDelegate;
 import com.sawert.swagger.entity.BreedDto;
 import com.sawert.swagger.model.Breed;
 import com.sawert.swagger.repository.BreedRepository;
+import com.sawert.swagger.service.BreedsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,8 @@ public class BreedsApiDelegateImpl implements BreedsApiDelegate {
     private HttpServletRequest httpServletRequest;
     @Autowired
     private BreedRepository breedRepository;
+    @Autowired
+    private BreedsService breedsService;
 
     @Override
     public Optional<ObjectMapper> getObjectMapper() {
@@ -60,8 +63,7 @@ public class BreedsApiDelegateImpl implements BreedsApiDelegate {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    List<Breed> breeds = new ArrayList<>();
-                    breedRepository.findAll().forEach(dto -> breeds.add(dto.toBreed()));
+                    List<Breed> breeds = breedsService.getBreeds();
                     return new ResponseEntity<>(breeds, HttpStatus.OK);
                 } catch (Exception e) {
                     log.error("Couldn't serialize response for content type application/json", e);
