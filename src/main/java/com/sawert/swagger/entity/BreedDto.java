@@ -21,8 +21,7 @@ public class BreedDto {
     @GeneratedValue(generator = "breed_generator")
     private Long id;
 
-    @Column(nullable = false)
-    @NaturalId
+    @Column(nullable = false, unique = true)
     private String name;
 
     private String description;
@@ -38,13 +37,5 @@ public class BreedDto {
 
     public BreedDto(Breed breed) {
         this(breed.getId(), breed.getName(), breed.getDescription(), breed.getAkcgroup());
-    }
-
-    public Breed toBreed() {
-        return new Breed()
-            .id(this.id)
-            .name(this.name)
-            .description(this.description)
-            .akcgroup(this.akcgroup);
     }
 }

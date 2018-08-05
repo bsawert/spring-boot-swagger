@@ -1,21 +1,18 @@
 package com.sawert.swagger.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sawert.swagger.api.BreedsApiDelegate;
 import com.sawert.swagger.api.DogsApiDelegate;
-import com.sawert.swagger.entity.BreedDto;
 import com.sawert.swagger.entity.DogDto;
-import com.sawert.swagger.model.Breed;
+import com.sawert.swagger.entity.DogMapper;
 import com.sawert.swagger.model.Dog;
-import com.sawert.swagger.repository.BreedRepository;
 import com.sawert.swagger.repository.DogRepository;
+import com.sawert.swagger.service.DogsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +26,8 @@ public class DogsApiDelegateImpl implements DogsApiDelegate {
     private HttpServletRequest httpServletRequest;
     @Autowired
     private DogRepository dogRepository;
+    @Autowired
+    private DogsService dogsService;
 
     @Autowired
     public DogsApiDelegateImpl(ObjectMapper objectMapper, HttpServletRequest httpServletRequest) {
@@ -52,7 +51,7 @@ public class DogsApiDelegateImpl implements DogsApiDelegate {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
                     DogDto dto = dogRepository.save(new DogDto(dog));
-                    return new ResponseEntity<Dog>(dto.toDog(), HttpStatus.CREATED);
+                    return new ResponseEntity<Dog>(DogMapper.toDog(dto), HttpStatus.CREATED);
                 } catch (Exception e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -69,8 +68,7 @@ public class DogsApiDelegateImpl implements DogsApiDelegate {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    List<Dog> dogs = new ArrayList<>();
-                    dogRepository.findAll().forEach(dto -> dogs.add(dto.toDog()));
+                    List<Dog> dogs = dogsService.getDogs();
                     return new ResponseEntity<>(dogs, HttpStatus.OK);
                 } catch (Exception e) {
                     log.error("Couldn't serialize response for content type application/json", e);
@@ -89,7 +87,7 @@ public class DogsApiDelegateImpl implements DogsApiDelegate {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
                     DogDto dto = dogRepository.findOne(id);
-                    return new ResponseEntity<Dog>(dto.toDog(), HttpStatus.OK);
+                    return new ResponseEntity<Dog>(DogMapper.toDog(dto), HttpStatus.OK);
                 } catch (Exception e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

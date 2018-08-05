@@ -5,11 +5,8 @@ import com.sawert.swagger.model.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,14 +45,5 @@ public class DogDto {
     public DogDto(Dog dog) {
         this(dog.getId(), dog.getName(), dog.getDescription(), dog.getGender(),
             dog.getBreed().stream().map(breed -> new BreedDto(breed)).collect(Collectors.toSet()));
-    }
-
-    public Dog toDog() {
-        return new Dog()
-            .id(this.id)
-            .name(this.name)
-            .description(this.description)
-            .gender(this.gender)
-            .breed(this.breedDtos.stream().map(breedDto -> breedDto.toBreed()).collect(Collectors.toList()));
     }
 }
