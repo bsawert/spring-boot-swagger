@@ -1,5 +1,6 @@
 package com.sawert.swagger;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @ComponentScan(basePackages = { "com.sawert.swagger", "com.sawert.swagger.api" })
 public class Swagger2SpringBoot implements CommandLineRunner {
+
+    @Value("${random.uuid}")
+    private String uuid;
 
     @Override
     public void run(String... arg0) throws Exception {
