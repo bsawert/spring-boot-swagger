@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,13 @@ public class DogDto {
         this.description = description;
         this.gender = gender;
         this.breedDtos = breedDtos;
+    }
+
+    public DogDto(String name, String description, Gender gender) {
+        this.name = name;
+        this.description = description;
+        this.gender = gender;
+        this.breedDtos = new HashSet<BreedDto>();
     }
 
     public DogDto(Dog dog) {
