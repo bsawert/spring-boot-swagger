@@ -1,6 +1,6 @@
-package com.sawert.swagger.impl;
+package com.sawert.swagger.service;
 
-import com.sawert.swagger.entity.DogMapper;
+import com.sawert.swagger.repository.DogMapper;
 import com.sawert.swagger.model.Dog;
 import com.sawert.swagger.repository.DogRepository;
 import com.sawert.swagger.service.DogsService;

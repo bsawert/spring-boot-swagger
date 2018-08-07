@@ -1,4 +1,4 @@
-package com.sawert.swagger.entity;
+package com.sawert.swagger.repository;
 
 import com.sawert.swagger.model.Dog;
 import com.sawert.swagger.model.Gender;

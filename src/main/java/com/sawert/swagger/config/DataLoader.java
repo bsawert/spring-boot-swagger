@@ -1,7 +1,7 @@
 package com.sawert.swagger.config;
 
-import com.sawert.swagger.entity.BreedDto;
-import com.sawert.swagger.entity.DogDto;
+import com.sawert.swagger.repository.BreedDto;
+import com.sawert.swagger.repository.DogDto;
 import com.sawert.swagger.model.AKCGroup;
 import com.sawert.swagger.model.Gender;
 import com.sawert.swagger.repository.BreedRepository;
@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Configuration

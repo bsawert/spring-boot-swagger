@@ -1,6 +1,6 @@
-package com.sawert.swagger.entity;
+package com.sawert.swagger.repository;
 
-import com.sawert.swagger.model.AKCGroup;
+import com.sawert.swagger.model.Gender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -12,18 +12,20 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Collections;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class BreedDtoTest {
+public class DogDtoTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Autowired
     private TestEntityManager entityManager;
-
+    
     @Before
     public void setUp() throws Exception {
     }
@@ -34,9 +36,9 @@ public class BreedDtoTest {
 
     @Test
     public void saveShouldPersistData() {
-        BreedDto dto = this.entityManager.persistFlushFind(
-            new BreedDto("Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS));
-        assertThat(dto.getName()).isEqualTo("Mutt");
-        assertThat(dto.getDescription()).isEqualTo("Pound puppy");
+        DogDto dto = this.entityManager.persistFlushFind(
+            new DogDto("Fluffy", "Lap dog", Gender.FEMALE, Collections.<BreedDto>emptySet()));
+        assertThat(dto.getName()).isEqualTo("Fluffy");
+        assertThat(dto.getDescription()).isEqualTo("Lap dog");
     }
 }

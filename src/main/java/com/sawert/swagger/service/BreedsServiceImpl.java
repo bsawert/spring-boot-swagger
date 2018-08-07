@@ -1,6 +1,6 @@
-package com.sawert.swagger.impl;
+package com.sawert.swagger.service;
 
-import com.sawert.swagger.entity.BreedMapper;
+import com.sawert.swagger.repository.BreedMapper;
 import com.sawert.swagger.model.Breed;
 import com.sawert.swagger.repository.BreedRepository;
 import com.sawert.swagger.service.BreedsService;

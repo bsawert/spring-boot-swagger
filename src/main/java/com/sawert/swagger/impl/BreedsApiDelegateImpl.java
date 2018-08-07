@@ -1,10 +1,9 @@
 package com.sawert.swagger.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sawert.swagger.api.BreedsApi;
 import com.sawert.swagger.api.BreedsApiDelegate;
-import com.sawert.swagger.entity.BreedDto;
-import com.sawert.swagger.entity.BreedMapper;
+import com.sawert.swagger.repository.BreedDto;
+import com.sawert.swagger.repository.BreedMapper;
 import com.sawert.swagger.model.Breed;
 import com.sawert.swagger.repository.BreedRepository;
 import com.sawert.swagger.service.BreedsService;
@@ -14,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

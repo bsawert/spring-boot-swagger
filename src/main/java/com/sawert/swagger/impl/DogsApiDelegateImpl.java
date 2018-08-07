@@ -2,8 +2,8 @@ package com.sawert.swagger.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sawert.swagger.api.DogsApiDelegate;
-import com.sawert.swagger.entity.DogDto;
-import com.sawert.swagger.entity.DogMapper;
+import com.sawert.swagger.repository.DogDto;
+import com.sawert.swagger.repository.DogMapper;
 import com.sawert.swagger.model.Dog;
 import com.sawert.swagger.repository.DogRepository;
 import com.sawert.swagger.service.DogsService;
@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
