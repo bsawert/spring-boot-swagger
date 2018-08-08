@@ -1,4 +1,4 @@
-package com.sawert.swagger.impl;
+package com.sawert.swagger.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,21 +7,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-public class DogsServiceImplTest {
+public class BreedsServiceImplTest {
 
     @Test
-    public void addDog() {
+    public void addBreed() {
     }
 
     @Test
-    public void getDogs() {
+    public void getBreeds() {
     }
 
     @Test
-    public void getDog() {
+    public void getBreed() {
     }
 
     @Test
-    public void getDogByName() {
+    public void getBreedByName() {
     }
 }

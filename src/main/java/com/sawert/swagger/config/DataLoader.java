@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-@Configuration
+//@Configuration
 public class DataLoader {
     private final Logger logger = LoggerFactory.getLogger(DataLoader.class);
 

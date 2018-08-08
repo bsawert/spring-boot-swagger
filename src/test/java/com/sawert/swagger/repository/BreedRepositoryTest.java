@@ -1,9 +1,6 @@
 package com.sawert.swagger.repository;
 
 import com.sawert.swagger.model.AKCGroup;
-import com.sawert.swagger.model.Breed;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +8,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -23,14 +23,6 @@ public class BreedRepositoryTest {
     @Autowired
     private BreedRepository repository;
 
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
     public void testGetBreed() {
         BreedDto dto = this.entityManager.persistFlushFind(
@@ -39,4 +31,23 @@ public class BreedRepositoryTest {
         assertNotNull(breedDto);
     }
 
+    @Test
+    public void testFindByName() {
+        BreedDto dto = this.entityManager.persistFlushFind(
+            new BreedDto("Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS));
+        List<BreedDto> breedDtos = this.repository.findByName(dto.getName());
+        assertNotNull(breedDtos);
+        assertEquals(1, breedDtos.size());
+        assertEquals(dto, breedDtos.get(0));
+    }
+
+    @Test
+    public void testFindByNameIgnoreCase() {
+        BreedDto dto = this.entityManager.persistFlushFind(
+            new BreedDto("Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS));
+        List<BreedDto> breedDtos = this.repository.findByNameIgnoreCase(dto.getName().toLowerCase());
+        assertNotNull(breedDtos);
+        assertEquals(1, breedDtos.size());
+        assertEquals(dto, breedDtos.get(0));
+    }
 }

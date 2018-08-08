@@ -8,4 +8,5 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 @ComponentScan
 public class RepositoryConfig {
+    // empty config to limit autoconfigure for unit tests
 }

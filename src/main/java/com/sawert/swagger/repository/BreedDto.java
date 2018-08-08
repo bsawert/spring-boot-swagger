@@ -2,17 +2,16 @@ package com.sawert.swagger.repository;
 
 import com.sawert.swagger.model.AKCGroup;
 import com.sawert.swagger.model.Breed;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 public class BreedDto {
 
@@ -30,6 +29,7 @@ public class BreedDto {
     private AKCGroup akcgroup;
 
     public BreedDto(String name, String description, AKCGroup akcGroup) {
+        Assert.hasLength(name, "Name must not be empty");
         this.name = name;
         this.description = description;
         this.akcgroup = akcGroup;

@@ -1,8 +1,6 @@
 package com.sawert.swagger.repository;
 
 import com.sawert.swagger.model.Gender;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -25,13 +23,19 @@ public class DogDtoTest {
 
     @Autowired
     private TestEntityManager entityManager;
-    
-    @Before
-    public void setUp() throws Exception {
+
+    @Test
+    public void createWhenNameIsNullShouldThrowException() {
+        this.thrown.expect(IllegalArgumentException.class);
+        this.thrown.expectMessage("Name must not be empty");
+        new DogDto(null, "Lap dog", Gender.FEMALE, Collections.<BreedDto>emptySet());
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @Test
+    public void createWhenNameIsEmptyShouldThrowException() {
+        this.thrown.expect(IllegalArgumentException.class);
+        this.thrown.expectMessage("Name must not be empty");
+        new DogDto("", "Lap dog", Gender.FEMALE, Collections.<BreedDto>emptySet());
     }
 
     @Test

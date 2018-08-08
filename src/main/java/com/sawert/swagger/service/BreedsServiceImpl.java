@@ -1,9 +1,9 @@
 package com.sawert.swagger.service;
 
-import com.sawert.swagger.repository.BreedMapper;
 import com.sawert.swagger.model.Breed;
+import com.sawert.swagger.repository.BreedDto;
+import com.sawert.swagger.repository.BreedMapper;
 import com.sawert.swagger.repository.BreedRepository;
-import com.sawert.swagger.service.BreedsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,18 +24,30 @@ public class BreedsServiceImpl implements BreedsService {
     @Override
     public List<Breed> getBreeds() {
         List<Breed> breeds = new ArrayList<>();
-        breedRepository.findAll().forEach(dto -> breeds.add(BreedMapper.toBreed(dto)));
+        this.breedRepository.findAll().forEach(dto -> breeds.add(BreedMapper.toBreed(dto)));
 
         return breeds;
     }
 
     @Override
     public Breed getBreed(Long id) {
-        return null;
+        Breed breed = null;
+        BreedDto dto = this.breedRepository.findOne(id);
+        if (dto != null) {
+            breed = BreedMapper.toBreed(dto);
+        }
+
+        return breed;
     }
 
     @Override
     public Breed getBreedByName(String name) {
-        return null;
+        Breed breed = null;
+        List<BreedDto> dtos = this.breedRepository.findByName(name);
+        if (dtos != null && !dtos.isEmpty()) {
+            breed = BreedMapper.toBreed(dtos.get(0));
+        }
+
+        return breed;
     }
 }

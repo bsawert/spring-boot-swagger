@@ -3,8 +3,10 @@ package com.sawert.swagger.repository;
 import com.sawert.swagger.model.Dog;
 import com.sawert.swagger.model.Gender;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 public class DogDto {
 
@@ -37,6 +40,7 @@ public class DogDto {
     private Set<BreedDto> breedDtos;
 
     public DogDto(String name, String description, Gender gender, Set<BreedDto> breedDtos) {
+        Assert.hasLength(name, "Name must not be empty");
         this.name = name;
         this.description = description;
         this.gender = gender;

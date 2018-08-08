@@ -8,4 +8,5 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 @ComponentScan
 public class ServiceConfig {
+    // empty config to limit autoconfigure for unit tests
 }
