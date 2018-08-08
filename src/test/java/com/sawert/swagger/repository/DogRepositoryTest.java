@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -63,6 +64,18 @@ public class DogRepositoryTest {
         DogDto dto = this.entityManager.persistFlushFind(
             new DogDto("Fluffy", "Lap dog", Gender.FEMALE));
         List<DogDto> dogDtos = this.repository.findByNameIgnoreCase(dto.getName());
+        assertNotNull(dogDtos);
+        assertEquals(1, dogDtos.size());
+        assertEquals(dto, dogDtos.get(0));;
+    }
+
+    @Test
+    public void testFindByBreed() {
+        BreedDto breedDto = this.entityManager.persistFlushFind(
+            new BreedDto("Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS));
+        DogDto dto = this.entityManager.persistFlushFind(
+            new DogDto("Fluffy", "Lap dog", Gender.FEMALE, Collections.<BreedDto>singleton(breedDto)));
+        List<DogDto> dogDtos = this.repository.findByBreedDtos(Collections.<BreedDto>singleton(breedDto));
         assertNotNull(dogDtos);
         assertEquals(1, dogDtos.size());
         assertEquals(dto, dogDtos.get(0));;
