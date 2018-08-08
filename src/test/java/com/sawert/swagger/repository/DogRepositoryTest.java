@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
@@ -35,6 +36,12 @@ public class DogRepositoryTest {
     }
 
     @Test
+    public void testGetDogNotFound() {
+        DogDto dogDto = this.repository.findOne(42L);
+        assertNull(dogDto);
+    }
+
+    @Test
     public void testFindByName() {
         DogDto dto = this.entityManager.persistFlushFind(
             new DogDto("Fluffy", "Lap dog", Gender.FEMALE));
@@ -42,6 +49,13 @@ public class DogRepositoryTest {
         assertNotNull(dogDtos);
         assertEquals(1, dogDtos.size());
         assertEquals(dto, dogDtos.get(0));
+    }
+
+    @Test
+    public void testFindByNameNotFound() {
+        List<DogDto> dogDtos = this.repository.findByName("NoName");
+        assertNotNull(dogDtos);
+        assertEquals(0, dogDtos.size());
     }
 
     @Test

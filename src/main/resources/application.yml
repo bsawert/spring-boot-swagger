@@ -28,3 +28,19 @@ springfox:
 logging:
   level:
     org.hibernate.SQL: debug
+
+management:
+  security:
+    enabled: false
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include:
+          - info
+          - health
+          - beans
+          - configprops
+  endpoint:
+    info:
+      enabled: true
