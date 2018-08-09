@@ -48,10 +48,7 @@ public class DogDto {
     }
 
     public DogDto(String name, String description, Gender gender) {
-        this.name = name;
-        this.description = description;
-        this.gender = gender;
-        this.breedDtos = new HashSet<BreedDto>();
+        this(name, description, gender, new HashSet<BreedDto>());
     }
 
     public DogDto(Dog dog) {
