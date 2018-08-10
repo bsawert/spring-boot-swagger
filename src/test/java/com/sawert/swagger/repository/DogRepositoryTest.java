@@ -81,4 +81,23 @@ public class DogRepositoryTest {
         assertEquals(new Long(1), dogDtos.get(0).getId());;
     }
 
+    @Test
+    public void testFindByBreedIn() {
+        BreedDto breedDto1 = this.entityManager.find(BreedDto.class, 1L);
+        List<DogDto> dogDtos = this.repository.findByBreedDtosIn(Sets.newHashSet(breedDto1));
+        assertNotNull(dogDtos);
+        assertEquals(1, dogDtos.size());
+        assertEquals(new Long(1), dogDtos.get(0).getId());;
+    }
+
+    @Test
+    public void testFindByNameAndBreed() {
+        DogDto dogDto1 = this.entityManager.find(DogDto.class, 1L);
+        Set<BreedDto> breedDtos = dogDto1.getBreedDtos();
+        List<DogDto> dogDtos = this.repository.findDistinctByNameAndBreedDtosIn(
+            dogDto1.getName(), dogDto1.getBreedDtos());
+        assertNotNull(dogDtos);
+        assertEquals(1, dogDtos.size());
+        assertEquals(new Long(1), dogDtos.get(0).getId());;
+    }
 }
