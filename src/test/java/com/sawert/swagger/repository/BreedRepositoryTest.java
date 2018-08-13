@@ -1,5 +1,6 @@
 package com.sawert.swagger.repository;
 
+import com.google.common.collect.Sets;
 import com.sawert.swagger.model.AKCGroup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +9,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -63,6 +66,35 @@ public class BreedRepositoryTest {
         assertNotNull(breedDtos);
         assertEquals(1, breedDtos.size());
         assertEquals(dto, breedDtos.get(0));
+    }
+
+    @Test
+    public void testFindBreedsByAKCGroup() {
+        List<BreedDto> breedDtos = this.repository.findBreedDtosByAkcgroupIn(
+                Sets.newHashSet(AKCGroup.TOY, AKCGroup.MISCELLANEOUS, AKCGroup.HOUND)
+        );
+        assertNotNull(breedDtos);
+        assertEquals(3, breedDtos.size());
+    }
+
+    @Test
+    public void testFindBreedsByAllAKCGroups() {
+        Map<AKCGroup, List<BreedDto>> groupBreedDtoMap = new HashMap<>();
+        Map<AKCGroup, List<BreedDto>> allBreedDtos =
+            StreamSupport.stream(this.repository.findAll().spliterator(), false)
+            .collect(Collectors.groupingBy(BreedDto::getAkcgroup));
+        assertNotNull(allBreedDtos);
+        assertEquals(2, allBreedDtos.size());
+
+        Arrays.stream(AKCGroup.values()).forEach(key -> {
+            groupBreedDtoMap.merge(key, allBreedDtos.getOrDefault(key, Collections.emptyList()), (first, second) -> {
+                first.addAll(second);
+                return first;
+            });
+        });
+
+        assertNotNull(groupBreedDtoMap);
+        assertEquals(AKCGroup.values().length, groupBreedDtoMap.size());
     }
 
 }
