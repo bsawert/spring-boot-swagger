@@ -24,4 +24,12 @@ public class BreedsServiceImplTest {
     @Test
     public void getBreedByName() {
     }
+
+    @Test
+    public void getBreedsByAkcGroup() {
+    }
+
+    @Test
+    public void getBreedsByAkcGroups() {
+    }
 }

@@ -2,8 +2,10 @@ package com.sawert.swagger.repository;
 
 import com.sawert.swagger.model.AKCGroup;
 import com.sawert.swagger.model.Breed;
-import lombok.*;
-import org.hibernate.annotations.NaturalId;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;

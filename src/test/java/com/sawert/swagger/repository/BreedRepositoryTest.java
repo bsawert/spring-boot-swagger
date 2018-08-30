@@ -2,7 +2,10 @@ package com.sawert.swagger.repository;
 
 import com.google.common.collect.Sets;
 import com.sawert.swagger.model.AKCGroup;
+import com.sawert.swagger.model.Breed;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -21,6 +24,9 @@ import static org.junit.Assert.assertNotNull;
 @DataJpaTest
 public class BreedRepositoryTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Autowired
     private TestEntityManager entityManager;
 
@@ -28,9 +34,17 @@ public class BreedRepositoryTest {
     private BreedRepository repository;
 
     @Test
+    public void testAddBreed() {
+        BreedDto dto = new BreedDto("Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS);
+        BreedDto breedDto = this.repository.save(dto);
+        assertNotNull(breedDto);
+        assertNotNull(breedDto.getId());
+    }
+
+    @Test
     public void testGetBreed() {
         BreedDto dto = this.entityManager.persistFlushFind(
-            new BreedDto("Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS));
+            new BreedDto("Test Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS));
         BreedDto breedDto = this.repository.findOne(dto.getId());
         assertNotNull(breedDto);
     }
@@ -44,7 +58,7 @@ public class BreedRepositoryTest {
     @Test
     public void testFindByName() {
         BreedDto dto = this.entityManager.persistFlushFind(
-            new BreedDto("Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS));
+            new BreedDto("Test Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS));
         List<BreedDto> breedDtos = this.repository.findByName(dto.getName());
         assertNotNull(breedDtos);
         assertEquals(1, breedDtos.size());
@@ -61,7 +75,7 @@ public class BreedRepositoryTest {
     @Test
     public void testFindByNameIgnoreCase() {
         BreedDto dto = this.entityManager.persistFlushFind(
-            new BreedDto("Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS));
+            new BreedDto("Test Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS));
         List<BreedDto> breedDtos = this.repository.findByNameIgnoreCase(dto.getName().toLowerCase());
         assertNotNull(breedDtos);
         assertEquals(1, breedDtos.size());
@@ -71,7 +85,7 @@ public class BreedRepositoryTest {
     @Test
     public void testFindBreedsByAKCGroup() {
         List<BreedDto> breedDtos = this.repository.findBreedDtosByAkcgroupIn(
-                Sets.newHashSet(AKCGroup.TOY, AKCGroup.MISCELLANEOUS, AKCGroup.HOUND)
+                Sets.newHashSet(AKCGroup.TOY, AKCGroup.HOUND)
         );
         assertNotNull(breedDtos);
         assertEquals(3, breedDtos.size());
@@ -84,7 +98,7 @@ public class BreedRepositoryTest {
             StreamSupport.stream(this.repository.findAll().spliterator(), false)
             .collect(Collectors.groupingBy(BreedDto::getAkcgroup));
         assertNotNull(allBreedDtos);
-        assertEquals(2, allBreedDtos.size());
+        assertEquals(4, allBreedDtos.size());
 
         Arrays.stream(AKCGroup.values()).forEach(key -> {
             groupBreedDtoMap.merge(key, allBreedDtos.getOrDefault(key, Collections.emptyList()), (first, second) -> {
