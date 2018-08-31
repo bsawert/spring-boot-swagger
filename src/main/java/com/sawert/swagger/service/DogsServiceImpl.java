@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,5 +51,15 @@ public class DogsServiceImpl implements DogsService {
         }
 
         return dogs;
+    }
+
+    @Override
+    public List<Dog> getDogsByBreed(Breed breed) {
+        return null;
+    }
+
+    @Override
+    public List<Dog> getDogsByBreeds(Set<Breed> breedSet) {
+        return null;
     }
 }
