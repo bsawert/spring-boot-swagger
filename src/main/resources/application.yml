@@ -30,6 +30,13 @@ logging:
     org.hibernate.SQL: DEBUG
     -- org.hibernate.type: TRACE
 
+h2:
+  tcp:
+    port: 9092
+    enabled: true
+  web:
+    port: 8082
+    enabled: true
 
 management:
   security:
