@@ -5,6 +5,9 @@ import com.sawert.swagger.repository.*;
 import com.sawert.swagger.model.Dog;
 import com.sawert.swagger.service.DogsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,6 +17,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class DogsServiceImpl implements DogsService {
+
+    @Value("${test.config.colors}")
+    private List<String> dogColors;
+
+    @Value("#{ systemProperties['user.dir'] }")
+    private String homeDir;
+
+    @Value("#{ systemEnvironment }")
+    private java.util.Properties systemEnvironment;
 
     @Autowired
     private DogRepository dogRepository;
@@ -25,6 +37,8 @@ public class DogsServiceImpl implements DogsService {
 
     @Override
     public List<Dog> getDogs() {
+
+        System.getenv("HOME");
         List<Dog> dogs = new ArrayList<>();
         dogRepository.findAll().forEach(dto -> dogs.add(DogMapper.toDog(dto)));
 

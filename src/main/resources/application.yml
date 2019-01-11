@@ -53,3 +53,7 @@ management:
   endpoint:
     info:
       enabled: true
+
+test:
+  config:
+    colors: Fawn, Black, Brindle
