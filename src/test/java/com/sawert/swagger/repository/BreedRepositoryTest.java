@@ -2,7 +2,6 @@ package com.sawert.swagger.repository;
 
 import com.google.common.collect.Sets;
 import com.sawert.swagger.model.AKCGroup;
-import com.sawert.swagger.model.Breed;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -84,7 +83,7 @@ public class BreedRepositoryTest {
 
     @Test
     public void testFindBreedsByAKCGroup() {
-        List<BreedDto> breedDtos = this.repository.findBreedDtosByAkcgroupIn(
+        List<BreedDto> breedDtos = this.repository.findByAkcgroupIn(
                 Sets.newHashSet(AKCGroup.TOY, AKCGroup.HOUND)
         );
         assertNotNull(breedDtos);

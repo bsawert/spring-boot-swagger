@@ -9,5 +9,5 @@ import java.util.Set;
 public interface BreedRepository extends CrudRepository<BreedDto, Long> {
     public List<BreedDto> findByName(String name);
     public List<BreedDto> findByNameIgnoreCase(String name);
-    public List<BreedDto> findBreedDtosByAkcgroupIn(Set<AKCGroup> akcGroupSet);
+    public List<BreedDto> findByAkcgroupIn(Set<AKCGroup> akcGroupSet);
 }

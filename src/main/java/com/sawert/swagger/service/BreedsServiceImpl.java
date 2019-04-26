@@ -69,7 +69,7 @@ public class BreedsServiceImpl implements BreedsService {
     @Override
     public List<Breed> getBreedsByAkcGroups(Set<AKCGroup> akcGroupSet) {
         List<Breed> breeds = new ArrayList<>();
-        List<BreedDto> dtos = this.breedRepository.findBreedDtosByAkcgroupIn(akcGroupSet);
+        List<BreedDto> dtos = this.breedRepository.findByAkcgroupIn(akcGroupSet);
         if (dtos != null && !dtos.isEmpty()) {
             dtos.forEach(dto -> breeds.add(BreedMapper.toBreed(dto)));
         }
