@@ -109,5 +109,4 @@ public class BreedRepositoryTest {
         assertNotNull(groupBreedDtoMap);
         assertEquals(AKCGroup.values().length, groupBreedDtoMap.size());
     }
-
 }
