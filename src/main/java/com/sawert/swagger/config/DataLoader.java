@@ -37,7 +37,7 @@ public class DataLoader {
             breedDtoSet.add(breedRepository.save(
                 new BreedDto("Dachshund", "Weiner Dog", AKCGroup.TOY)));
             dogDto = dogRepository.save(
-                new DogDto("Lily", "Lily", Gender.FEMALE, breedDtoSet));
+                new DogDto("Lily", "Lily", Gender.FEMALE_NEUTERED, breedDtoSet));
         };
     }
 
