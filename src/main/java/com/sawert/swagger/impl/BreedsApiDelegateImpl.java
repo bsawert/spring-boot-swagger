@@ -80,8 +80,8 @@ public class BreedsApiDelegateImpl implements BreedsApiDelegate {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    BreedDto dto = breedRepository.findOne(id);
-                    return new ResponseEntity<Breed>(BreedMapper.toBreed(dto), HttpStatus.OK);
+                    Optional<BreedDto> dto = breedRepository.findById(id);
+                    return new ResponseEntity<Breed>(BreedMapper.toBreed(dto.orElse(null)), HttpStatus.OK);
                 } catch (Exception e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

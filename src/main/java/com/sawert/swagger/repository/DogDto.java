@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +24,7 @@ public class DogDto {
 
     @Id
     @SequenceGenerator(name = "dog_generator", sequenceName = "dog_sequence", initialValue = 100)
-    @GeneratedValue(generator = "dog_generator")
+    @GeneratedValue(strategy = SEQUENCE, generator = "dog_generator")
     private Long id;
 
     @Column(nullable = false)

@@ -10,6 +10,8 @@ import org.springframework.util.Assert;
 
 import javax.persistence.*;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +21,7 @@ public class BreedDto {
 
     @Id
     @SequenceGenerator(name = "breed_generator", sequenceName = "breed_sequence", initialValue = 100)
-    @GeneratedValue(generator = "breed_generator")
+    @GeneratedValue(strategy = SEQUENCE, generator = "breed_generator")
     private Long id;
 
     @Column(nullable = false, unique = true)

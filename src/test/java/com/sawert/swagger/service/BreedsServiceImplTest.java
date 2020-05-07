@@ -21,6 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -123,22 +124,24 @@ public class BreedsServiceImplTest {
 
         when(this.breedRepository.findAll()).thenReturn(this.breedDtoList);
 
-        Answer<BreedDto> idAnswer = new Answer<BreedDto>() {
-            public BreedDto answer(InvocationOnMock invocation) throws Throwable {
-                Long id = invocation.getArgumentAt(0, Long.class);
-                return BreedsServiceImplTest.this.breedDtoList
+        Answer<Optional<BreedDto>> idAnswer = new Answer<Optional<BreedDto>>() {
+            public Optional<BreedDto> answer(InvocationOnMock invocation) throws Throwable {
+                Long id = invocation.getArgument(0);
+                return Optional.<BreedDto>ofNullable(
+                    BreedsServiceImplTest.this.breedDtoList
                         .stream()
                         .filter(dto -> dto.getId().equals(id))
                         .findFirst()
-                        .orElse(null);
+                        .orElse(null)
+                );
             }
         };
 
-        when(this.breedRepository.findOne(anyLong())).thenAnswer(idAnswer);
+        when(this.breedRepository.findById(anyLong())).thenAnswer(idAnswer);
 
         Answer<List<BreedDto>> nameAnswer = new Answer<List<BreedDto>>() {
             public List<BreedDto> answer(InvocationOnMock invocation) throws Throwable {
-                String name = invocation.getArgumentAt(0, String.class);
+                String name = invocation.getArgument(0);
                 return BreedsServiceImplTest.this.breedDtoList
                         .stream()
                         .filter(dto -> dto.getName().equals(name))

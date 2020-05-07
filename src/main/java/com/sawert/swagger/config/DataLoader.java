@@ -38,6 +38,11 @@ public class DataLoader {
                 new BreedDto("Dachshund", "Weiner Dog", AKCGroup.TOY)));
             dogDto = dogRepository.save(
                 new DogDto("Lily", "Lily", Gender.FEMALE, breedDtoSet));
+
+            BreedDto breedDto2 = breedRepository.save(
+                new BreedDto("Golden Retriever", "Golden Retriever", AKCGroup.SPORTING));
+            dogDto = dogRepository.save(
+                new DogDto("Lady", "Lady", Gender.FEMALE, Collections.<BreedDto>singleton(breedDto2)));
         };
     }
 

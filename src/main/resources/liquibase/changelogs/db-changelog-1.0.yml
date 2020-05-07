@@ -1,0 +1,148 @@
+databaseChangeLog:
+- changeSet:
+    id: 1588786445409-1
+    author: bsawert (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: PK_BREED_DTO
+            name: ID
+            type: BIGINT
+        - column:
+            name: AKCGROUP
+            type: VARCHAR(255)
+        - column:
+            name: DESCRIPTION
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: NAME
+            type: VARCHAR(255)
+        tableName: BREED_DTO
+- changeSet:
+    id: 1588786445409-2
+    author: bsawert (generated)
+    changes:
+    - createSequence:
+        sequenceName: BREED_SEQUENCE
+        startValue: 200
+        minValue: 100
+        incrementBy: 1
+- changeSet:
+    id: 1588786445409-3
+    author: bsawert (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: PK_DOG_BREED
+            name: FK_DOG
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: PK_DOG_BREED
+            name: FK_BREED
+            type: BIGINT
+        tableName: DOG_BREED
+- changeSet:
+    id: 1588786445409-4
+    author: bsawert (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: PK_DOG_DTO
+            name: ID
+            type: BIGINT
+        - column:
+            name: DESCRIPTION
+            type: VARCHAR(255)
+        - column:
+            name: GENDER
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: NAME
+            type: VARCHAR(255)
+        tableName: DOG_DTO
+- changeSet:
+    id: 1588786445409-5
+    author: bsawert (generated)
+    changes:
+    - createSequence:
+        sequenceName: DOG_SEQUENCE
+        startValue: 200
+        minValue: 100
+        incrementBy: 1
+- changeSet:
+    id: 1588786445409-6
+    author: bsawert (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: NAME
+        constraintName: CONSTRAINT_3
+        tableName: BREED_DTO
+- changeSet:
+    id: 1588786445409-7
+    author: bsawert (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: FK_BREED
+        indexName: FK_BREED_INDEX
+        tableName: DOG_BREED
+- changeSet:
+    id: 1588786445409-8
+    author: bsawert (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: FK_DOG
+        indexName: FK_DOG_INDEX
+        tableName: DOG_BREED
+- changeSet:
+    id: 1588786445409-9
+    author: bsawert (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: FK_BREED
+        baseTableName: DOG_BREED
+        constraintName: FK_BREED_CONSTRAINT
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: BREED_DTO
+        validate: true
+- changeSet:
+    id: 1588786445409-10
+    author: bsawert (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: FK_DOG
+        baseTableName: DOG_BREED
+        constraintName: FK_DOG_CONSTRAINT
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: DOG_DTO
+        validate: true

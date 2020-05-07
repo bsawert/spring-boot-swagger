@@ -1,18 +1,13 @@
 package com.sawert.swagger.service;
 
 import com.sawert.swagger.model.Breed;
-import com.sawert.swagger.repository.*;
 import com.sawert.swagger.model.Dog;
-import com.sawert.swagger.service.DogsService;
+import com.sawert.swagger.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,9 +43,9 @@ public class DogsServiceImpl implements DogsService {
     @Override
     public Dog getDog(Long id) {
         Dog dog = null;
-        DogDto dto = this.dogRepository.findOne(id);
-        if (dto != null) {
-            dog = DogMapper.toDog(dto);
+        Optional<DogDto> dto = this.dogRepository.findById(id);
+        if (dto.isPresent()) {
+            dog = DogMapper.toDog(dto.get());
         }
 
         return dog;
@@ -61,7 +56,9 @@ public class DogsServiceImpl implements DogsService {
         List<Dog> dogs = new ArrayList<Dog>();
         List<DogDto> dtos = this.dogRepository.findByName(name);
         if (dtos != null && !dtos.isEmpty()) {
-            dogs = dtos.stream().map(DogMapper::toDog).collect(Collectors.toList());
+            dogs = dtos.stream()
+                .map(DogMapper::toDog)
+                .collect(Collectors.toList());
         }
 
         return dogs;
@@ -69,11 +66,22 @@ public class DogsServiceImpl implements DogsService {
 
     @Override
     public List<Dog> getDogsByBreed(Breed breed) {
-        return null;
+        return getDogsByBreeds(Collections.singleton(breed));
     }
 
     @Override
     public List<Dog> getDogsByBreeds(Set<Breed> breedSet) {
-        return null;
+        List<Dog> dogs = new ArrayList<>();
+        if (breedSet != null && !breedSet.isEmpty()) {
+            Set<BreedDto> breedDtos = breedSet.stream()
+                .map(BreedMapper::toBreedDto)
+                .collect(Collectors.toSet());
+            List<DogDto> dtos = this.dogRepository.findByBreedDtosIn(breedDtos);
+            if (dtos != null && !dtos.isEmpty()) {
+                dtos.forEach(dto -> dogs.add(DogMapper.toDog(dto)));
+            }
+        }
+
+        return dogs;
     }
 }

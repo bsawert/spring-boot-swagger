@@ -9,18 +9,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@ActiveProfiles("test")
 public class BreedRepositoryTest {
 
     @Rule
@@ -44,14 +44,14 @@ public class BreedRepositoryTest {
     public void testGetBreed() {
         BreedDto dto = this.entityManager.persistFlushFind(
             new BreedDto("Test Mutt", "Pound puppy", AKCGroup.MISCELLANEOUS));
-        BreedDto breedDto = this.repository.findOne(dto.getId());
-        assertNotNull(breedDto);
+        Optional<BreedDto> breedDto = this.repository.findById(dto.getId());
+        assertTrue(breedDto.isPresent());
     }
 
     @Test
     public void testGetBreedNotFound() {
-        BreedDto breedDto = this.repository.findOne(42L);
-        assertNull(breedDto);
+        Optional<BreedDto> breedDto = this.repository.findById(42L);
+        assertFalse(breedDto.isPresent());
     }
 
     @Test

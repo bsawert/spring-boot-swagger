@@ -85,8 +85,8 @@ public class DogsApiDelegateImpl implements DogsApiDelegate {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    DogDto dto = dogRepository.findOne(id);
-                    return new ResponseEntity<Dog>(DogMapper.toDog(dto), HttpStatus.OK);
+                    Optional<DogDto> dto = dogRepository.findById(id);
+                    return new ResponseEntity<Dog>(DogMapper.toDog(dto.orElse(null)), HttpStatus.OK);
                 } catch (Exception e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

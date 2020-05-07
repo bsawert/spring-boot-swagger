@@ -8,10 +8,7 @@ import com.sawert.swagger.repository.BreedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class BreedsServiceImpl implements BreedsService {
@@ -42,9 +39,9 @@ public class BreedsServiceImpl implements BreedsService {
     @Override
     public Breed getBreed(Long id) {
         Breed breed = null;
-        BreedDto dto = this.breedRepository.findOne(id);
-        if (dto != null) {
-            breed = BreedMapper.toBreed(dto);
+        Optional<BreedDto> dto = this.breedRepository.findById(id);
+        if (dto.isPresent()) {
+            breed = BreedMapper.toBreed(dto.get());
         }
 
         return breed;

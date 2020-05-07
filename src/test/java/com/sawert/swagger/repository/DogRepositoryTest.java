@@ -11,18 +11,19 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@ActiveProfiles("test")
 public class DogRepositoryTest {
 
     @Autowired
@@ -35,14 +36,14 @@ public class DogRepositoryTest {
     public void testGetDog() {
         DogDto dto = this.entityManager.persistFlushFind(
             new DogDto("Fluffy", "Lap dog", Gender.FEMALE));
-        DogDto dogDto = this.repository.findOne(dto.getId());
-        assertNotNull(dogDto);
+        Optional<DogDto> dogDto = this.repository.findById(dto.getId());
+        assertTrue(dogDto.isPresent());
     }
 
     @Test
     public void testGetDogNotFound() {
-        DogDto dogDto = this.repository.findOne(42L);
-        assertNull(dogDto);
+        Optional<DogDto> dogDto = this.repository.findById(42L);
+        assertFalse(dogDto.isPresent());
     }
 
     @Test
@@ -70,15 +71,6 @@ public class DogRepositoryTest {
         assertNotNull(dogDtos);
         assertEquals(1, dogDtos.size());
         assertEquals(dto, dogDtos.get(0));;
-    }
-
-    @Test
-    public void testFindByBreed() {
-        BreedDto breedDto1 = this.entityManager.find(BreedDto.class, 1L);
-        List<DogDto> dogDtos = this.repository.findByBreedDtos(Sets.newHashSet(breedDto1));
-        assertNotNull(dogDtos);
-        assertEquals(2, dogDtos.size());
-        assertEquals(new Long(1), dogDtos.get(0).getId());;
     }
 
     @Test

@@ -1,13 +1,14 @@
 package com.sawert.swagger.api;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class BreedsApiController implements BreedsApi {
 
     private final BreedsApiDelegate delegate;
 
-    @org.springframework.beans.factory.annotation.Autowired
+    @Autowired
     public BreedsApiController(BreedsApiDelegate delegate) {
         this.delegate = delegate;
     }

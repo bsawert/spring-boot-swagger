@@ -2,21 +2,41 @@ spring:
   profiles: default
   main:
     banner-mode: "off"
+    #allow-bean-definition-overriding: true
   h2:
     console:
       enabled: true
       path: /h2-console
   jpa:
-    open-in-view: true
+    open-in-view: false
     hibernate:
       use-new-id-generator-mappings: true
+      ddl-auto: none
+    database: h2
+
   jackson:
     date-format: com.sawert.swagger.RFC3339DateFormat
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 
+  datasource:
+    driver-class-name: org.h2.Driver
+    dialect: org.hibernate.dialect.H2Dialect
+    # url: jdbc:h2:~/data/test
+    url: jdbc:h2:tcp://localhost:9092/~/data/test
+    username: sa
+    password: 
+
+  # datasource:
+  #   driverClassName: com.mysql.cj.jdbc.Driver
+  #   dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  #   url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8
+  #   username: bsawert
+  #   password: nopass
+
 server:
-  contextPath: /doghouse
+  servlet:
+    context-path: /doghouse
   port: 8080
 
 springfox:
@@ -29,6 +49,8 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     #org.hibernate.type: TRACE
+    org.springframework.boot: WARN
+    org.springframework.orm.jpa: DEBUG
 
 h2:
   tcp:
@@ -57,3 +79,5 @@ management:
 test:
   config:
     colors: Fawn, Black, Brindle
+
+debug: true
