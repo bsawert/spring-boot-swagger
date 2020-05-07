@@ -11,9 +11,11 @@ public enum Gender {
   MALE("Male"),
   
   FEMALE("Female"),
-  
-  NEUTERED("Neutered"),
-  
+
+  MALE_NEUTERED("Male Neutered"),
+
+  FEMALE_NEUTERED("Female Neutered"),
+
   OTHER("Other"),
   
   UNKNOWN("Unknown");
